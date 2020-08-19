@@ -1,9 +1,11 @@
 ﻿using DailyTasksReport.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Netcode;
 using StardewValley;
 using StardewValley.Characters;
 using StardewValley.Locations;
+using StardewValley.Network;
 using System;
 using System.Linq;
 using System.Text;
@@ -42,6 +44,15 @@ namespace DailyTasksReport.Tasks
             _pet = location.characters.OfType<Pet>().FirstOrDefault();
         }
 
+        //This code copied from: https://stardewvalleywiki.com/Modding:Migrate_to_Stardew_Valley_1.4
+        //The assumption is that pet cats and dogs can only benefit from being pet once, not once from each player in a multiplayer context
+        //I couldn't determine whether this assumption is correct from the available documentation -- Garth
+        private bool WasPetToday(Pet pet) 
+        {
+            NetLongDictionary<int, NetInt> lastPettedDays = ModEntry.ReflectionHelper.GetField<NetLongDictionary<int, NetInt>>(pet, "lastPetDay").GetValue();
+            return lastPettedDays.Values.Any(day => day == Game1.Date.TotalDays);
+        }
+
         private void UpdateInfo()
         {
             if (_pet == null)
@@ -51,7 +62,7 @@ namespace DailyTasksReport.Tasks
                     return;
             }
 
-            _petPetted = ModEntry.ReflectionHelper.GetField<bool>(_pet, "wasPetToday").GetValue();
+            _petPetted = WasPetToday(_pet);
             _petBowlFilled = _farm.getTileIndexAt(54, 7, "Buildings") == 1939;
 
             Enabled = Enabled && !(_petBowlFilled && _petPetted);

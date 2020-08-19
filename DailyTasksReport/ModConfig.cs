@@ -7,7 +7,7 @@ namespace DailyTasksReport
     internal class ModConfig
     {
         /// <summary> The input to open the report. </summary>
-        public SButton OpenReportKey { get; set; } = SButton.Y;
+        public SButton OpenReportKey { get; set; } = SButton.I; //updated to I from Y
 
         /// <summary> The input to open the settings menu. </summary>
         public SButton OpenSettings { get; set; } = SButton.None;
