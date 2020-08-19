@@ -8,6 +8,8 @@
 * Fix issue when crab pots are placed in something not is not water (needs to be checked).
 * Check compatibility with mods that add content (eg. Artisan Valley, Extended Farm, Working Fireplace).
 * Add translations.
+* Needs testing for multiplayer compatibility / issues
+* Needs testing for compatibility with other mods
 
 ### Self Service shops
 * Make the mod work on the clinic.

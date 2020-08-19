@@ -63,7 +63,7 @@ namespace DailyTasksReport.Tasks
             }
 
             _petPetted = WasPetToday(_pet);
-            _petBowlFilled = _farm.getTileIndexAt(54, 7, "Buildings") == 1939;
+            _petBowlFilled = _farm.petBowlWatered; // Thanks to Stash https://github.com/GuiNoya/SVMods/pull/4
 
             Enabled = Enabled && !(_petBowlFilled && _petPetted);
         }
